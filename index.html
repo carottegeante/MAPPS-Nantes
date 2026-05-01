@@ -7,948 +7,226 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-:root {
-  --c-bg: #FAFAF7;
-  --c-surface: #FFFFFF;
-  --c-text: #1A1A18;
-  --c-text-2: #5A5A55;
-  --c-text-3: #8A8A82;
-  --c-border: #E5E5DF;
-  --c-border-light: #F0F0EB;
-  --c-teal: #0C8C6A;
-  --c-teal-light: #E6F5F0;
-  --c-teal-dark: #06614A;
-  --c-purple: #6B5CE7;
-  --c-purple-light: #EEEDFE;
-  --c-coral: #D85A30;
-  --c-coral-light: #FDF0EB;
-  --c-blue: #2E6BC6;
-  --c-blue-light: #EAF0FB;
-  --c-amber: #B8860B;
-  --c-amber-light: #FDF6E3;
-  --c-warm: #F5F0E8;
-  --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, sans-serif;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
-  --max-w: 720px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
-  background: var(--c-bg);
-  color: var(--c-text);
-  line-height: 1.65;
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-}
-
-.page {
-  display: none;
-  min-height: 100dvh;
-  animation: fadeIn 0.4s ease;
-}
-.page.active { display: block; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── HEADER ─── */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(250, 250, 247, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--c-border-light);
-}
-.header-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.header-brand {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--c-text-2);
-  letter-spacing: 0.02em;
-}
-.header-back {
-  font-size: 13px;
-  color: var(--c-teal);
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: var(--font-body);
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition);
-}
-.header-back:hover { background: var(--c-teal-light); }
-
-/* ─── HERO / HUB ─── */
-.hub-hero {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 60px 24px 20px;
-}
-.hub-hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 5vw, 38px);
-  font-weight: 400;
-  line-height: 1.25;
-  color: var(--c-text);
-  margin-bottom: 16px;
-}
-.hub-hero p {
-  font-size: 17px;
-  color: var(--c-text-2);
-  max-width: 540px;
-  line-height: 1.7;
-}
-
-.hub-grid {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 20px 24px 60px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-@media (max-width: 520px) {
-  .hub-grid { grid-template-columns: 1fr; }
-}
-
-.hub-card {
-  background: var(--c-surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--c-border);
-  padding: 28px 24px;
-  cursor: pointer;
-  transition: all var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-.hub-card:hover {
-  border-color: var(--c-teal);
-  box-shadow: var(--shadow), 0 0 0 1px var(--c-teal);
-  transform: translateY(-2px);
-}
-.hub-card.disabled {
-  opacity: 0.5;
-  cursor: default;
-  pointer-events: none;
-}
-.hub-card-num {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--c-teal);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.hub-card h2 {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
-.hub-card p {
-  font-size: 14px;
-  color: var(--c-text-2);
-  line-height: 1.55;
-}
-.hub-card .tag-soon {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--c-text-3);
-  background: var(--c-border-light);
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-top: 12px;
-}
-.hub-card .tag-active {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--c-teal-dark);
-  background: var(--c-teal-light);
-  padding: 3px 10px;
-  border-radius: 20px;
-  margin-top: 12px;
-}
-
-.hub-footer {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 24px 40px;
-  font-size: 13px;
-  color: var(--c-text-3);
-  line-height: 1.6;
-}
-.hub-suggestion {
-  background: var(--c-warm);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-size: 13px;
-  color: var(--c-text-2);
-}
-.hub-suggestion strong { color: var(--c-text); font-weight: 500; }
-
-/* ─── BRANCH SCREENS ─── */
-.branch-container {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 32px 24px 100px;
-}
-
-.progress-bar {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 40px;
-}
-.progress-dot {
-  height: 3px;
-  border-radius: 2px;
-  flex: 1;
-  background: var(--c-border);
-  transition: background var(--transition);
-}
-.progress-dot.done { background: var(--c-teal); }
-.progress-dot.current { background: var(--c-teal); }
-
-.screen {
-  display: none;
-  animation: fadeIn 0.35s ease;
-}
-.screen.active { display: block; }
-
-.screen-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--c-teal);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.screen h2 {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 4vw, 32px);
-  font-weight: 400;
-  line-height: 1.25;
-  margin-bottom: 16px;
-}
-.screen .intro {
-  font-size: 17px;
-  color: var(--c-text-2);
-  margin-bottom: 28px;
-  max-width: 560px;
-  line-height: 1.7;
-}
-.screen .note {
-  font-size: 14px;
-  color: var(--c-text-3);
-  font-style: italic;
-  margin-top: 20px;
-}
-
-/* ─── CARDS ─── */
-.profile-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  margin: 24px 0;
-}
-.profile-card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  padding: 20px;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.profile-card:hover {
-  border-color: var(--c-teal);
-  box-shadow: var(--shadow);
-}
-.profile-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--c-teal-light);
-  color: var(--c-teal-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-.profile-card h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.profile-card .desc {
-  font-size: 13px;
-  color: var(--c-text-2);
-  line-height: 1.5;
-}
-.profile-detail {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--c-border-light);
-  font-size: 13px;
-  color: var(--c-text-2);
-  line-height: 1.55;
-  display: none;
-}
-.profile-card.open .profile-detail { display: block; }
-.profile-card .tap-hint {
-  font-size: 11px;
-  color: var(--c-teal);
-  margin-top: 8px;
-  font-weight: 500;
-}
-.profile-card.open .tap-hint { display: none; }
-
-/* ─── ECOSYSTEM CARDS ─── */
-.eco-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  margin: 24px 0;
-}
-.eco-card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  padding: 24px 20px;
-  text-align: center;
-  transition: all var(--transition);
-  cursor: pointer;
-}
-.eco-card:hover {
-  border-color: var(--c-purple);
-  box-shadow: var(--shadow);
-}
-.eco-icon {
-  font-size: 28px;
-  margin-bottom: 10px;
-  display: block;
-}
-.eco-card h3 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.eco-card .desc {
-  font-size: 12px;
-  color: var(--c-text-2);
-  line-height: 1.5;
-}
-.eco-detail {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--c-border-light);
-  font-size: 12px;
-  color: var(--c-text-2);
-  line-height: 1.5;
-  text-align: left;
-  display: none;
-}
-.eco-card.open .eco-detail { display: block; }
-
-/* ─── QUOTE CARDS ─── */
-.quote-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: 24px 0;
-}
-@media (max-width: 520px) {
-  .quote-grid { grid-template-columns: 1fr; }
-}
-.quote-card {
-  border-radius: var(--radius);
-  padding: 20px;
-  border-left: 4px solid;
-}
-.quote-card.q1 { background: var(--c-teal-light); border-color: var(--c-teal); }
-.quote-card.q2 { background: var(--c-blue-light); border-color: var(--c-blue); }
-.quote-card.q3 { background: var(--c-purple-light); border-color: var(--c-purple); }
-.quote-card.q4 { background: var(--c-coral-light); border-color: var(--c-coral); }
-.quote-card .quote-text {
-  font-size: 15px;
-  font-style: italic;
-  line-height: 1.6;
-  color: var(--c-text);
-  margin-bottom: 8px;
-}
-.quote-card .quote-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--c-text-2);
-}
-
-/* ─── POSTURE CARDS ─── */
-.posture-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: 24px 0;
-}
-@media (max-width: 520px) {
-  .posture-grid { grid-template-columns: 1fr; }
-}
-.posture-card {
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  padding: 20px;
-  border-left: 4px solid;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.posture-card:hover { box-shadow: var(--shadow); }
-.posture-card.p1 { border-left-color: var(--c-teal); }
-.posture-card.p2 { border-left-color: var(--c-blue); }
-.posture-card.p3 { border-left-color: var(--c-coral); }
-.posture-card.p4 { border-left-color: var(--c-purple); }
-.posture-card h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.posture-card .summary {
-  font-size: 13px;
-  color: var(--c-text-2);
-  line-height: 1.5;
-}
-.posture-card .detail {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--c-border-light);
-  font-size: 13px;
-  color: var(--c-text-2);
-  line-height: 1.55;
-  display: none;
-}
-.posture-card.open .detail { display: block; }
-
-/* ─── FIGURES LIST ─── */
-.figure-list { margin: 24px 0; }
-.figure-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 14px 16px;
-  border-radius: var(--radius-sm);
-  margin-bottom: 6px;
-  transition: background var(--transition);
-}
-.figure-item:hover { background: var(--c-border-light); }
-.figure-item.highlight {
-  background: var(--c-teal-light);
-  border: 1px solid rgba(12, 140, 106, 0.2);
-}
-.figure-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-top: 6px;
-  flex-shrink: 0;
-}
-.figure-item.highlight .figure-dot { background: var(--c-teal); }
-.figure-item:not(.highlight) .figure-dot { background: var(--c-border); }
-.figure-name {
-  font-size: 14px;
-  font-weight: 600;
-  min-width: 130px;
-  flex-shrink: 0;
-}
-.figure-desc {
-  font-size: 14px;
-  color: var(--c-text-2);
-  line-height: 1.5;
-}
-
-/* ─── LINK CARDS (screen 6) ─── */
-.link-section { margin: 24px 0; }
-.link-section-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--c-text-3);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.link-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
-  background: var(--c-surface);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-sm);
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: all var(--transition);
-  text-decoration: none;
-  color: inherit;
-}
-.link-card:hover {
-  border-color: var(--c-teal);
-  box-shadow: var(--shadow);
-  transform: translateX(4px);
-}
-.link-card h3 {
-  font-size: 14px;
-  font-weight: 500;
-}
-.link-card .sub {
-  font-size: 12px;
-  color: var(--c-text-3);
-}
-.link-card .arrow {
-  margin-left: auto;
-  color: var(--c-text-3);
-  font-size: 18px;
-  transition: transform var(--transition);
-}
-.link-card:hover .arrow { transform: translateX(4px); color: var(--c-teal); }
-
-.resource-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-.resource-tag {
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  background: var(--c-amber-light);
-  color: var(--c-amber);
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition);
-  border: 1px solid transparent;
-}
-.resource-tag:hover {
-  border-color: var(--c-amber);
-}
-
-/* ─── NAVIGATION BOTTOM ─── */
-.nav-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(250, 250, 247, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid var(--c-border-light);
-  z-index: 100;
-}
-.nav-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.nav-btn {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.nav-btn.prev {
-  background: none;
-  color: var(--c-text-2);
-}
-.nav-btn.prev:hover { background: var(--c-border-light); }
-.nav-btn.next {
-  background: var(--c-teal);
-  color: white;
-}
-.nav-btn.next:hover { background: var(--c-teal-dark); }
-.nav-btn:disabled { opacity: 0.3; pointer-events: none; }
-.nav-counter {
-  font-size: 13px;
-  color: var(--c-text-3);
-}
+:root{--bg:#FAFAF7;--sf:#FFF;--tx:#1A1A18;--tx2:#5A5A55;--tx3:#8A8A82;--bd:#E5E5DF;--bdl:#F0F0EB;--tl:#0C8C6A;--tll:#E6F5F0;--tld:#06614A;--pu:#6B5CE7;--pul:#EEEDFE;--co:#D85A30;--col:#FDF0EB;--bl:#2E6BC6;--bll:#EAF0FB;--am:#B8860B;--aml:#FDF6E3;--wm:#F5F0E8;--fd:'DM Serif Display',Georgia,serif;--fb:'DM Sans',-apple-system,sans-serif;--r:12px;--rs:8px;--sh:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.03);--mw:720px;--tr:.3s cubic-bezier(.4,0,.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--tx);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+.pg{display:none;min-height:100dvh;animation:fi .4s ease}.pg.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+header{position:sticky;top:0;z-index:100;background:rgba(250,250,247,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--bdl)}
+.hi{max-width:var(--mw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.hb{font-size:13px;font-weight:500;color:var(--tx2);letter-spacing:.02em}
+.bk{font-size:13px;color:var(--tl);cursor:pointer;border:none;background:none;font-family:var(--fb);font-weight:500;padding:6px 12px;border-radius:var(--rs);transition:background var(--tr)}.bk:hover{background:var(--tll)}
+.hero{max-width:var(--mw);margin:0 auto;padding:60px 24px 20px}
+.hero h1{font-family:var(--fd);font-size:clamp(28px,5vw,38px);font-weight:400;line-height:1.25;margin-bottom:16px}
+.hero p{font-size:17px;color:var(--tx2);max-width:540px;line-height:1.7}
+.hg{max-width:var(--mw);margin:0 auto;padding:20px 24px 40px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:520px){.hg{grid-template-columns:1fr}}
+.hc{background:var(--sf);border-radius:var(--r);border:1px solid var(--bd);padding:28px 24px;cursor:pointer;transition:all var(--tr)}
+.hc:hover{border-color:var(--tl);box-shadow:var(--sh),0 0 0 1px var(--tl);transform:translateY(-2px)}
+.hcn{font-size:12px;font-weight:600;color:var(--tl);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.hc h2{font-family:var(--fd);font-size:20px;font-weight:400;margin-bottom:8px;line-height:1.3}
+.hc p{font-size:14px;color:var(--tx2);line-height:1.55}
+.tg{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-top:12px;color:var(--tld);background:var(--tll)}
+.hf{max-width:var(--mw);margin:0 auto;padding:0 24px 40px}
+.hs{background:var(--wm);border-radius:var(--rs);padding:14px 18px;font-size:13px;color:var(--tx2)}.hs strong{color:var(--tx);font-weight:500}
+.bc{max-width:var(--mw);margin:0 auto;padding:32px 24px 100px}
+.pb{display:flex;gap:6px;margin-bottom:40px}
+.pd{height:3px;border-radius:2px;flex:1;background:var(--bd);transition:background var(--tr)}.pd.dn,.pd.cu{background:var(--tl)}
+.sc{display:none;animation:fi .35s ease}.sc.on{display:block}
+.sl{font-size:12px;font-weight:500;color:var(--tl);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.sc h2{font-family:var(--fd);font-size:clamp(24px,4vw,32px);font-weight:400;line-height:1.25;margin-bottom:16px}
+.it{font-size:17px;color:var(--tx2);margin-bottom:28px;max-width:560px;line-height:1.7}
+.nt{font-size:14px;color:var(--tx3);font-style:italic;margin-top:20px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:24px 0}
+.cd{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:20px;cursor:pointer;transition:all var(--tr)}.cd:hover{border-color:var(--tl);box-shadow:var(--sh)}
+.cd h3{font-size:15px;font-weight:600;margin-bottom:4px}.cd .ds{font-size:13px;color:var(--tx2);line-height:1.5}
+.cd .dt{margin-top:10px;padding-top:10px;border-top:1px solid var(--bdl);font-size:13px;color:var(--tx2);line-height:1.55;display:none}.cd.op .dt{display:block}
+.cd .hn{font-size:11px;color:var(--tl);margin-top:8px;font-weight:500}.cd.op .hn{display:none}
+.av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:16px;margin-bottom:12px}
+.ei{font-size:28px;margin-bottom:10px;display:block;text-align:center}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+@media(max-width:520px){.qg,.pg2{grid-template-columns:1fr!important}}
+.qc{border-radius:var(--r);padding:20px;border-left:4px solid}
+.q1{background:var(--tll);border-color:var(--tl)}.q2{background:var(--bll);border-color:var(--bl)}.q3{background:var(--pul);border-color:var(--pu)}.q4{background:var(--col);border-color:var(--co)}
+.qc .qt{font-size:15px;font-style:italic;line-height:1.6;margin-bottom:8px}.qc .ql{font-size:12px;font-weight:500;color:var(--tx2)}
+.pg2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.pc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:20px;border-left:4px solid;cursor:pointer;transition:all var(--tr)}.pc:hover{box-shadow:var(--sh)}
+.pc h3{font-size:15px;font-weight:600;margin-bottom:4px}.pc .sm{font-size:13px;color:var(--tx2);line-height:1.5}
+.pc .dt{margin-top:10px;padding-top:10px;border-top:1px solid var(--bdl);font-size:13px;color:var(--tx2);line-height:1.55;display:none}.pc.op .dt{display:block}
+.p1{border-left-color:var(--tl)}.p2{border-left-color:var(--bl)}.p3{border-left-color:var(--co)}.p4{border-left-color:var(--pu)}
+.fl{margin:24px 0}.fi{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border-radius:var(--rs);margin-bottom:6px;transition:background var(--tr)}.fi:hover{background:var(--bdl)}
+.fi.hl{background:var(--tll);border:1px solid rgba(12,140,106,.2)}
+.fd{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0}.fi.hl .fd{background:var(--tl)}.fi:not(.hl) .fd{background:var(--bd)}
+.fn{font-size:14px;font-weight:600;min-width:130px;flex-shrink:0}.fds{font-size:14px;color:var(--tx2);line-height:1.5}
+.ls{margin:24px 0}.lst{font-size:12px;font-weight:600;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.lc{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);margin-bottom:8px;cursor:pointer;transition:all var(--tr);text-decoration:none;color:inherit}
+.lc:hover{border-color:var(--tl);box-shadow:var(--sh);transform:translateX(4px)}
+.lc h3{font-size:14px;font-weight:500}.lc .sb{font-size:12px;color:var(--tx3)}
+.lc .ar{margin-left:auto;color:var(--tx3);font-size:18px;transition:transform var(--tr)}.lc:hover .ar{transform:translateX(4px);color:var(--tl)}
+.rts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.rt{font-size:13px;padding:6px 14px;border-radius:20px;font-weight:500;text-decoration:none;transition:all var(--tr);border:1px solid transparent;background:var(--aml);color:var(--am)}.rt:hover{border-color:var(--am)}
+.hm{border-color:var(--tl)!important;background:var(--tll)!important}.hm h3{color:var(--tld)!important}.hm .ar{color:var(--tld)!important}
+.nb{position:fixed;bottom:0;left:0;right:0;background:rgba(250,250,247,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--bdl);z-index:100;display:none}
+.ni{max-width:var(--mw);margin:0 auto;padding:12px 24px;display:flex;justify-content:space-between;align-items:center}
+.nb2{font-family:var(--fb);font-size:14px;font-weight:500;border:none;border-radius:var(--rs);padding:10px 20px;cursor:pointer;transition:all var(--tr)}
+.pv{background:none;color:var(--tx2)}.pv:hover{background:var(--bdl)}
+.nx{background:var(--tl);color:#fff}.nx:hover{background:var(--tld)}
+.nb2:disabled{opacity:.3;pointer-events:none}.nc{font-size:13px;color:var(--tx3)}
+.tl{position:relative;padding-left:28px;margin:24px 0}.tl::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--bd)}
+.ts{position:relative;margin-bottom:18px;padding-bottom:2px}.ts::before{content:'';position:absolute;left:-24px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--tll);border:2px solid var(--tl)}
+.ts h4{font-size:14px;font-weight:600;margin-bottom:2px}.ts p{font-size:13px;color:var(--tx2);line-height:1.5}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}@media(max-width:520px){.tc{grid-template-columns:1fr}}
+.cy{border-radius:var(--r);padding:20px;background:var(--tll);border:1px solid rgba(12,140,106,.15)}.cn{border-radius:var(--r);padding:20px;background:#FEF2F0;border:1px solid rgba(216,90,48,.15)}
+.cy h4,.cn h4{font-size:14px;font-weight:600;margin-bottom:8px}.cy p,.cn p{font-size:13px;color:var(--tx2);line-height:1.55}
+.sn{font-size:15px;color:var(--tx);line-height:1.7;font-style:italic;padding:16px 20px;background:var(--wm);border-radius:var(--rs);margin:20px 0}
+.dh{background:var(--pul);border:1px solid rgba(107,92,231,.2);border-radius:var(--r);padding:20px;margin:20px 0}.dh h4{font-size:14px;font-weight:600;color:var(--pu);margin-bottom:6px}.dh p{font-size:13px;color:var(--tx2);line-height:1.55}
 </style>
 </head>
 <body>
+<header><div class="hi"><span class="hb">Le partenariat patient en enseignement</span><button class="bk" id="bh" onclick="goH()" style="display:none">&#8592; Accueil</button></div></header>
 
-<!-- ════════════════ HEADER ════════════════ -->
-<header class="site-header">
-  <div class="header-inner">
-    <span class="header-brand">Le partenariat patient en enseignement</span>
-    <button class="header-back" id="btn-home" onclick="goHub()" style="display:none;">← Accueil</button>
-  </div>
-</header>
-
-<!-- ════════════════ HUB PAGE ════════════════ -->
-<div class="page active" id="page-hub">
-
-  <div class="hub-hero">
-    <h1>Le partenariat avec les patients dans les enseignements en santé</h1>
-    <p>Un parcours pour découvrir qui sont les patients partenaires, ce qu'ils apportent, et comment travailler avec eux.</p>
-  </div>
-
-  <div class="hub-grid">
-    <div class="hub-card" onclick="goB1()">
-      <div class="hub-card-num">Branche 1</div>
-      <h2>Qui sont les patients partenaires ?</h2>
-      <p>Rencontrer ces personnes, leur parcours, leur posture. Comprendre ce qui distingue le partenariat des autres formes de présence du patient en formation.</p>
-      <span class="tag-active">Accessible</span>
-    </div>
-
-    <div class="hub-card disabled">
-      <div class="hub-card-num">Branche 2</div>
-      <h2>Qu'est-ce que ça apporte aux enseignements ?</h2>
-      <p>Ce que l'intervention d'un patient partenaire produit dans une séance de formation, pour les étudiants et pour l'enseignant.</p>
-      <span class="tag-soon">Bientôt</span>
-    </div>
-
-    <div class="hub-card disabled">
-      <div class="hub-card-num">Branche 3</div>
-      <h2>Comment ça se passe concrètement ?</h2>
-      <p>Préparer une séance, se coordonner, gérer le temps. Les étapes pratiques d'un enseignement avec un patient partenaire.</p>
-      <span class="tag-soon">Bientôt</span>
-    </div>
-
-    <div class="hub-card disabled">
-      <div class="hub-card-num">Branche 4</div>
-      <h2>Dans quel cadre ?</h2>
-      <p>Recrutement, rémunération, éthique, accompagnement institutionnel. Les conditions qui soutiennent le partenariat.</p>
-      <span class="tag-soon">Bientôt</span>
-    </div>
-  </div>
-
-  <div class="hub-footer">
-    <div class="hub-suggestion">
-      <strong>Parcours suggéré :</strong> B1 → B2 → B3 → B4. Chaque branche est aussi consultable séparément, dans l'ordre qui convient.
-    </div>
-  </div>
+<div class="pg on" id="pg-hub">
+<div class="hero"><h1>Le partenariat avec les patients dans les enseignements en sant&#233;</h1><p>Un parcours pour d&#233;couvrir qui sont les patients partenaires, ce qu&#8217;ils apportent, et comment travailler avec eux.</p></div>
+<div class="hg">
+<div class="hc" onclick="goB('b1')"><div class="hcn">Branche 1</div><h2>Qui sont les patients partenaires&#160;?</h2><p>Rencontrer ces personnes, leur parcours, leur posture. Comprendre ce qui les distingue des autres figures du patient.</p><span class="tg">Accessible</span></div>
+<div class="hc" onclick="goB('b2')"><div class="hcn">Branche 2</div><h2>Qu&#8217;est-ce que &#231;a apporte&#160;?</h2><p>Ce que l&#8217;intervention d&#8217;un patient partenaire produit dans une s&#233;ance, pour les &#233;tudiants et pour l&#8217;enseignant.</p><span class="tg">Accessible</span></div>
+<div class="hc" onclick="goB('b3')"><div class="hcn">Branche 3</div><h2>Comment &#231;a se passe concr&#232;tement&#160;?</h2><p>Les &#233;tapes, le temps, les impr&#233;vus. Une vue d&#8217;ensemble pour savoir &#224; quoi s&#8217;attendre.</p><span class="tg">Accessible</span></div>
+<div class="hc" onclick="goB('b4')"><div class="hcn">Branche 4</div><h2>Dans quel cadre&#160;?</h2><p>&#201;thique, s&#233;curit&#233;, accompagnement institutionnel. Ce qui prot&#232;ge et ce qui soutient.</p><span class="tg">Accessible</span></div>
+</div>
+<div class="hf"><div class="hs"><strong>Parcours sugg&#233;r&#233;&#160;:</strong> B1 &#8594; B2 &#8594; B3 &#8594; B4. Chaque branche est aussi consultable s&#233;par&#233;ment.</div></div>
 </div>
 
-<!-- ════════════════ B1 SCREENS ════════════════ -->
-<div class="page" id="page-b1">
-  <div class="branch-container">
+<div class="pg" id="pg-b1"><div class="bc"><div class="pb" id="pr-b1"></div>
+<div class="sc on" data-s="0"><div class="sl">Branche 1 &#8212; 1/6</div><h2>Qui sont les patients partenaires&#160;?</h2><p class="it">Ce sont des personnes qui ont travers&#233; un parcours de soin &#8212; et qui ont choisi d&#8217;en faire quelque chose. Pas de t&#233;moigner. Pas de militer. De contribuer, aux c&#244;t&#233;s des enseignants, &#224; la formation des futurs professionnels de sant&#233;.</p>
+<div class="cg"><div class="cd" onclick="this.classList.toggle('op')"><div class="av" style="background:var(--tll);color:var(--tld)">M</div><h3>Marie</h3><div class="ds">Parcours en oncologie. Engag&#233;e depuis 3 ans.</div><div class="hn">D&#233;couvrir &#8594;</div><div class="dt">Apr&#232;s un parcours de soins en oncologie, Marie a souhait&#233; que son exp&#233;rience serve &#224; la formation des futurs soignants. Elle intervient aupr&#232;s d&#8217;&#233;tudiants en m&#233;decine.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')"><div class="av" style="background:var(--bll);color:var(--bl)">T</div><h3>Thomas</h3><div class="ds">Maladie chronique. Intervient en odontologie.</div><div class="hn">D&#233;couvrir &#8594;</div><div class="dt">Vivant avec une maladie chronique depuis l&#8217;adolescence, Thomas apporte aux &#233;tudiants un regard sur la relation de soin au long cours.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')"><div class="av" style="background:var(--col);color:var(--co)">F</div><h3>Fatou</h3><div class="ds">Aidante familiale. Intervient en pharmacie.</div><div class="hn">D&#233;couvrir &#8594;</div><div class="dt">Aidante de son p&#232;re pendant plusieurs ann&#233;es, Fatou transmet aux &#233;tudiants l&#8217;exp&#233;rience de ceux qui accompagnent un proche malade.</div></div></div>
+<p class="nt">Chacun porte une histoire singuli&#232;re. Ils ne parlent ni pour &#171;&#160;les patients&#160;&#187; en g&#233;n&#233;ral, ni au nom d&#8217;une cause.</p><p class="nt" style="color:var(--tl);font-style:normal;font-size:12px;margin-top:12px">[Profils illustratifs &#8212; &#224; remplacer par des t&#233;moignages r&#233;els.]</p></div>
 
-    <div class="progress-bar" id="progress">
-      <div class="progress-dot" data-step="0"></div>
-      <div class="progress-dot" data-step="1"></div>
-      <div class="progress-dot" data-step="2"></div>
-      <div class="progress-dot" data-step="3"></div>
-      <div class="progress-dot" data-step="4"></div>
-      <div class="progress-dot" data-step="5"></div>
-    </div>
+<div class="sc" data-s="1"><div class="sl">Branche 1 &#8212; 2/6</div><h2>Un engagement pr&#233;par&#233; et accompagn&#233;</h2><p class="it">On ne devient pas patient partenaire du jour au lendemain. Des formations existent, des structures accompagnent, des ressources sont accessibles.</p>
+<div class="cg"><div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--pu)"><span class="ei">&#127891;</span><h3>Formations universitaires</h3><div class="ds">DU et DIU en partenariat patient-professionnel</div><div class="hn">En savoir plus &#8594;</div><div class="dt">Plusieurs universit&#233;s proposent des dipl&#244;mes d&#233;di&#233;s&#160;: le <strong>DU PaPPS &#224; Nantes</strong> forme patients et professionnels dans les m&#234;mes promotions &#8212; une particularit&#233; qui incarne le partenariat d&#232;s la formation. Des formations &#233;quivalentes existent &#224; Lyon, Nice (CI3P), Montpellier, Rennes, Paris.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--tl)"><span class="ei">&#127963;</span><h3>Services universitaires</h3><div class="ds">Structures d&#8217;appui au sein des universit&#233;s</div><div class="hn">En savoir plus &#8594;</div><div class="dt">Des missions d&#8217;appui existent dans plusieurs universit&#233;s&#160;: MAPPS &#224; Nantes, DPPER &#224; Rennes, CI3P &#224; Nice. Elles coordonnent le recrutement, la formation et l&#8217;accompagnement des patients partenaires.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--co)"><span class="ei">&#129309;</span><h3>Associations et ressources</h3><div class="ds">R&#233;seaux, guides, communaut&#233;s de pratiques</div><div class="hn">En savoir plus &#8594;</div><div class="dt">France Assos Sant&#233;, l&#8217;Universit&#233; des Patients (Sorbonne), le CEPPP (Montr&#233;al, r&#233;f&#233;rence francophone) et des associations locales contribuent &#224; la formation et &#224; l&#8217;accompagnement.</div></div></div></div>
 
-    <!-- ── Écran 1 ── -->
-    <div class="screen active" data-screen="0">
-      <div class="screen-label">Branche 1 — écran 1 / 6</div>
-      <h2>Qui sont les patients partenaires ?</h2>
-      <p class="intro">Des personnes ayant traversé un parcours de soin, qui ont choisi d'engager cette expérience dans la formation des professionnels de santé.</p>
+<div class="sc" data-s="2"><div class="sl">Branche 1 &#8212; 3/6</div><h2>Chaque engagement a son histoire</h2>
+<div class="qg"><div class="qc q1"><div class="qt">&#171;&#160;Ce que j&#8217;ai v&#233;cu peut servir &#224; former de meilleurs soignants.&#160;&#187;</div><div class="ql">Rendre utile son exp&#233;rience</div></div><div class="qc q2"><div class="qt">&#171;&#160;Je veux contribuer &#224; am&#233;liorer la qualit&#233; des soins par la formation.&#160;&#187;</div><div class="ql">Exigence de qualit&#233;</div></div><div class="qc q3"><div class="qt">&#171;&#160;C&#8217;est aussi un travail sur mon propre parcours.&#160;&#187;</div><div class="ql">Travail r&#233;flexif</div></div><div class="qc q4"><div class="qt">&#171;&#160;Le partenariat, j&#8217;y crois. Je veux y contribuer concr&#232;tement.&#160;&#187;</div><div class="ql">Engagement partenarial</div></div></div>
+<p class="nt">Ces motivations ne sont pas exclusives. La plupart en croisent plusieurs, qui &#233;voluent dans le temps.</p><p class="nt" style="color:var(--tl);font-style:normal;font-size:12px;margin-top:12px">[Citations illustratives &#8212; &#224; remplacer par des t&#233;moignages r&#233;els.]</p></div>
 
-      <div class="profile-grid">
-        <div class="profile-card" onclick="this.classList.toggle('open')">
-          <div class="profile-avatar">M</div>
-          <h3>Marie</h3>
-          <div class="desc">Parcours en oncologie. Engagée depuis 3 ans.</div>
-          <div class="tap-hint">Découvrir →</div>
-          <div class="profile-detail">Après un parcours de soins en oncologie, Marie a souhaité que son expérience serve à la formation des futurs soignants. Elle intervient régulièrement auprès d'étudiants en médecine.</div>
-        </div>
-        <div class="profile-card" onclick="this.classList.toggle('open')">
-          <div class="profile-avatar">T</div>
-          <h3>Thomas</h3>
-          <div class="desc">Maladie chronique. Intervient en odontologie.</div>
-          <div class="tap-hint">Découvrir →</div>
-          <div class="profile-detail">Vivant avec une maladie chronique depuis l'adolescence, Thomas apporte aux étudiants en odontologie un regard sur la relation de soin au long cours et sur ce que les patients n'osent pas toujours dire.</div>
-        </div>
-        <div class="profile-card" onclick="this.classList.toggle('open')">
-          <div class="profile-avatar">F</div>
-          <h3>Fatou</h3>
-          <div class="desc">Aidante familiale. Intervient en pharmacie.</div>
-          <div class="tap-hint">Découvrir →</div>
-          <div class="profile-detail">Aidante de son père pendant plusieurs années, Fatou transmet aux étudiants en pharmacie l'expérience de ceux qui accompagnent un proche malade — un rôle souvent invisible dans le parcours de soin.</div>
-        </div>
-      </div>
+<div class="sc" data-s="3"><div class="sl">Branche 1 &#8212; 4/6</div><h2>Une posture, pas un r&#244;le</h2><p class="it">&#202;tre patient partenaire, c&#8217;est une mani&#232;re d&#8217;&#234;tre pr&#233;sent dans un dispositif de formation. Quatre caract&#233;ristiques la d&#233;finissent.</p>
+<div class="pg2"><div class="pc p1" onclick="this.classList.toggle('op')"><h3>R&#233;ciprocit&#233;</h3><div class="sm">On co-construit. Chacun apporte un savoir distinct.</div><div class="dt">Le patient partenaire et l&#8217;enseignant construisent ensemble ce qui se passe dans la s&#233;ance. Savoir exp&#233;rientiel d&#8217;un c&#244;t&#233;, savoir acad&#233;mique ou clinique de l&#8217;autre &#8212; ces savoirs se r&#233;pondent sans se confondre.</div></div>
+<div class="pc p2" onclick="this.classList.toggle('op')"><h3>Compl&#233;mentarit&#233;</h3><div class="sm">Deux savoirs qui se compl&#232;tent, sans hi&#233;rarchie.</div><div class="dt">L&#8217;exp&#233;rience v&#233;cue d&#8217;une maladie ne remplace pas la connaissance scientifique. La connaissance scientifique n&#8217;&#233;puise pas l&#8217;exp&#233;rience v&#233;cue. Aucune ne prime.</div></div>
+<div class="pc p3" onclick="this.classList.toggle('op')"><h3>&#8800; revendication</h3><div class="sm">Pas un plaidoyer. Un cadre p&#233;dagogique.</div><div class="dt">Le patient partenaire n&#8217;est pas un militant. Il peut avoir des convictions sur le syst&#232;me de sant&#233; &#8212; elles ne constituent pas son propos dans une s&#233;ance de formation.</div></div>
+<div class="pc p4" onclick="this.classList.toggle('op')"><h3>&#8800; t&#233;moignage passif</h3><div class="sm">Il contribue &#224; la conception, pas seulement au r&#233;cit.</div><div class="dt">Le patient partenaire ne se contente pas de raconter. Il contribue &#224; la mani&#232;re dont la s&#233;ance est con&#231;ue et anim&#233;e. C&#8217;est l&#224; que se joue la distinction.</div></div></div></div>
 
-      <p class="note">Chacun porte une histoire singulière. Ils ne parlent ni pour « les patients » en général, ni au nom d'une cause. Ils apportent ce qu'aucun manuel ne peut transmettre : ce qu'est vivre une maladie.</p>
-      <p class="note" style="color: var(--c-teal); font-style: normal; margin-top: 12px; font-size: 12px;">[Profils illustratifs — à remplacer par des témoignages réels avec consentement.]</p>
-    </div>
+<div class="sc" data-s="4"><div class="sl">Branche 1 &#8212; 5/6</div><h2>Quelles diff&#233;rences avec les autres figures&#160;?</h2><p class="it">Plusieurs figures du patient interviennent en formation. Elles ne sont pas interchangeables.</p>
+<div class="fl"><div class="fi hl"><div class="fd"></div><div class="fn">Patient partenaire</div><div class="fds">Co-con&#231;oit et co-anime une s&#233;ance avec l&#8217;enseignant, en mobilisant son savoir exp&#233;rientiel.</div></div>
+<div class="fi"><div class="fd"></div><div class="fn">Patient t&#233;moin</div><div class="fds">Apporte un r&#233;cit d&#8217;exp&#233;rience, sans participer &#224; la conception ni &#224; l&#8217;animation.</div></div>
+<div class="fi"><div class="fd"></div><div class="fn">Patient ressource</div><div class="fds">Met &#224; disposition son exp&#233;rience comme mat&#233;riau p&#233;dagogique, sans pr&#233;sence n&#233;cessaire.</div></div>
+<div class="fi"><div class="fd"></div><div class="fn">Patient expert</div><div class="fds">Mobilise une exp&#233;rience approfondie, souvent associ&#233;e &#224; une formation ou un engagement associatif.</div></div>
+<div class="fi"><div class="fd"></div><div class="fn">Patient simul&#233;</div><div class="fds">Com&#233;dien form&#233; jouant un r&#244;le dans un exercice de simulation.</div></div>
+<div class="fi"><div class="fd"></div><div class="fn">Pair-aidant</div><div class="fds">Accompagne d&#8217;autres patients dans leur parcours, plut&#244;t que des &#233;tudiants en formation.</div></div></div></div>
 
-    <!-- ── Écran 2 ── -->
-    <div class="screen" data-screen="1">
-      <div class="screen-label">Branche 1 — écran 2 / 6</div>
-      <h2>Un engagement préparé et accompagné</h2>
-      <p class="intro">Les patients partenaires ne sont pas sollicités sans préparation. Plusieurs types de structures assurent leur formation et leur accompagnement.</p>
+<div class="sc" data-s="5"><div class="sl">Branche 1 &#8212; 6/6</div><h2>Pour aller plus loin</h2>
+<div class="ls"><div class="lst">Continuer le parcours</div><div class="lc" onclick="goB('b2')"><div><h3>Qu&#8217;est-ce que &#231;a apporte&#160;?</h3><div class="sb">Branche B2</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b3')"><div><h3>Comment &#231;a se passe concr&#232;tement&#160;?</h3><div class="sb">Branche B3</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b4')"><div><h3>Dans quel cadre&#160;?</h3><div class="sb">Branche B4</div></div><span class="ar">&#8594;</span></div></div>
+<div class="ls"><div class="lst">Se former</div><div class="dh"><h4>&#127891; DU Partenariat Patients-Professionnels en Sant&#233;</h4><p>Plusieurs universit&#233;s proposent des dipl&#244;mes d&#233;di&#233;s. Le DU PaPPS de Nantes forme patients et professionnels dans les m&#234;mes promotions. Des formations &#233;quivalentes existent &#224; Lyon, Nice, Montpellier, Rennes, Paris.</p></div></div>
+<div class="ls"><div class="lst">Ressources</div><div class="rts"><a class="rt" href="https://ceppp.ca" target="_blank" rel="noopener">CEPPP Montr&#233;al</a><a class="rt" href="https://www.france-assos-sante.org" target="_blank" rel="noopener">France Assos Sant&#233;</a><a class="rt" href="https://universitedespatients.sorbonne-universite.fr" target="_blank" rel="noopener">Universit&#233; des Patients</a><a class="rt" href="https://ci3p.univ-cotedazur.fr" target="_blank" rel="noopener">CI3P Nice</a></div></div>
+<div style="margin-top:20px"><div class="lc hm" onclick="goH()"><div><h3>Retour &#224; l&#8217;accueil</h3></div><span class="ar">&#8592;</span></div></div></div>
+</div></div>
 
-      <div class="eco-grid">
-        <div class="eco-card" onclick="this.classList.toggle('open')">
-          <span class="eco-icon">🏛</span>
-          <h3>Services universitaires</h3>
-          <div class="desc">Structures dédiées au sein des universités</div>
-          <div class="eco-detail">Des missions d'appui existent dans plusieurs universités françaises : MAPPS à Nantes, DPPER à Rennes, et des structures équivalentes ailleurs. Elles coordonnent le recrutement, la formation et l'accompagnement des patients partenaires.</div>
-        </div>
-        <div class="eco-card" onclick="this.classList.toggle('open')">
-          <span class="eco-icon">🤝</span>
-          <h3>Associations</h3>
-          <div class="desc">Réseaux de patients et d'usagers</div>
-          <div class="eco-detail">France Assos Santé, l'Université des Patients (Sorbonne), et des associations locales contribuent à la formation et à l'accompagnement des patients qui s'engagent dans l'enseignement.</div>
-        </div>
-        <div class="eco-card" onclick="this.classList.toggle('open')">
-          <span class="eco-icon">💻</span>
-          <h3>Ressources en ligne</h3>
-          <div class="desc">Formations, guides, communautés</div>
-          <div class="eco-detail">Le CEPPP (Université de Montréal) est la référence francophone. Des guides pratiques et des communautés de pratiques permettent de se former à distance.</div>
-        </div>
-      </div>
+<div class="pg" id="pg-b2"><div class="bc"><div class="pb" id="pr-b2"></div>
+<div class="sc on" data-s="0"><div class="sl">Branche 2 &#8212; 1/5</div><h2>Qu&#8217;est-ce qui change quand un patient est l&#224;&#160;?</h2>
+<div class="sn">Un &#233;tudiant en pharmacie qui entend, pour la premi&#232;re fois, ce que vit au quotidien une personne sous traitement au long cours. Un silence dans la salle. Quelque chose vient de passer qu&#8217;aucun cours magistral ne pouvait transmettre.</div>
+<p class="it">L&#8217;int&#233;gration d&#8217;un patient partenaire produit des effets distincts de ceux qu&#8217;on obtient par le cours, le cas clinique ou la simulation.</p>
+<div class="cg" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))"><div class="cd" style="text-align:center;border-top:3px solid var(--tl);cursor:default"><h3>Pour les &#233;tudiants</h3><div class="ds">Ancrage, &#233;coute, posture</div></div><div class="cd" style="text-align:center;border-top:3px solid var(--bl);cursor:default"><h3>Pour l&#8217;enseignant</h3><div class="ds">Diversification, ancrage clinique</div></div><div class="cd" style="text-align:center;border-top:3px solid var(--pu);cursor:default"><h3>Pour le soin</h3><div class="ds">Continuit&#233; formation-exercice</div></div></div></div>
 
-      <p class="note">La préparation porte sur la posture en contexte pédagogique, l'articulation entre savoir expérientiel et savoir académique. Un accompagnement continu permet d'ajuster la posture au fil des interventions.</p>
-    </div>
+<div class="sc" data-s="1"><div class="sl">Branche 2 &#8212; 2/5</div><h2>Ce que les &#233;tudiants en retirent</h2>
+<div class="pg2"><div class="pc p1" onclick="this.classList.toggle('op')"><h3>Ancrage des savoirs</h3><div class="sm">Ce qu&#8217;une pathologie produit dans la vie de quelqu&#8217;un &#8212; pas dans un manuel.</div><div class="dt">L&#8217;exp&#233;rience v&#233;cue relie les savoirs acad&#233;miques &#224; leurs effets concrets. Les &#233;tudiants per&#231;oivent ce qu&#8217;un parcours de soin produit dans la vie d&#8217;une personne.</div></div>
+<div class="pc p2" onclick="this.classList.toggle('op')"><h3>Comp&#233;tences relationnelles</h3><div class="sm">&#201;couter, reconna&#238;tre l&#8217;autre comme source de savoir.</div><div class="dt">L&#8217;interaction avec un patient partenaire &#8212; dans un cadre o&#249; il est reconnu comme partenaire, pas comme objet d&#8217;&#233;tude &#8212; fait travailler l&#8217;&#233;coute et la communication en situation.</div></div>
+<div class="pc p3" onclick="this.classList.toggle('op')"><h3>Comportements en sant&#233;</h3><div class="sm">Comprendre les choix des patients de l&#8217;int&#233;rieur.</div><div class="dt">Les repr&#233;sentations, les r&#233;sistances, les adh&#233;sions deviennent lisibles de l&#8217;int&#233;rieur. On acc&#232;de &#224; ce qui se joue dans la d&#233;cision d&#8217;une personne.</div></div>
+<div class="pc p4" onclick="this.classList.toggle('op')"><h3>Posture partenariale</h3><div class="sm">Exp&#233;rimenter en formation ce qu&#8217;on attendra en pratique.</div><div class="dt">L&#8217;&#233;tudiant exp&#233;rimente dans un cadre de formation la posture qu&#8217;on attendra de lui en exercice. Ce que la formation incarne pr&#233;pare ce que le soin demandera.</div></div></div></div>
 
-    <!-- ── Écran 3 ── -->
-    <div class="screen" data-screen="2">
-      <div class="screen-label">Branche 1 — écran 3 / 6</div>
-      <h2>Chaque engagement a son histoire</h2>
+<div class="sc" data-s="2"><div class="sl">Branche 2 &#8212; 3/5</div><h2>Ce que &#231;a apporte &#224; l&#8217;enseignant</h2><p class="it">On parle souvent des b&#233;n&#233;fices pour les &#233;tudiants. Mais l&#8217;enseignant y trouve aussi quelque chose.</p>
+<div class="cg" style="grid-template-columns:1fr"><div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--tl)"><h3>Diversification p&#233;dagogique</h3><div class="ds">Une voix distincte qui rompt le rapport frontal et ouvre des formats nouveaux.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Le patient partenaire introduit une voix qui n&#8217;est ni celle de l&#8217;enseignant, ni celle d&#8217;un expert invit&#233;. La s&#233;ance n&#8217;est plus &#224; sens unique &#8212; elle devient un espace de dialogue.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--bl)"><h3>Ancrage clinique</h3><div class="ds">Particuli&#232;rement utile pour les disciplines non cliniques.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Pour les enseignements sans dimension clinique directe &#8212; pharmacie, sciences fondamentales, STAPS &#8212; le patient partenaire apporte un ancrage dans la r&#233;alit&#233; du soin.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--pu)"><h3>Approche par comp&#233;tences</h3><div class="ds">Travailler le relationnel, le d&#233;cisionnel, l&#8217;&#233;thique.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Le patient partenaire rend accessibles des comp&#233;tences transversales &#8212; relationnelles, d&#233;cisionnelles, &#233;thiques &#8212; qui se laissent mal saisir dans un format exclusivement th&#233;orique.</div></div></div></div>
 
-      <div class="quote-grid">
-        <div class="quote-card q1">
-          <div class="quote-text">« Ce que j'ai vécu peut servir à former de meilleurs soignants. »</div>
-          <div class="quote-label">Rendre utile son expérience</div>
-        </div>
-        <div class="quote-card q2">
-          <div class="quote-text">« Je veux contribuer à améliorer la qualité des soins par la formation. »</div>
-          <div class="quote-label">Exigence de qualité</div>
-        </div>
-        <div class="quote-card q3">
-          <div class="quote-text">« C'est aussi un travail sur mon propre parcours. »</div>
-          <div class="quote-label">Travail réflexif</div>
-        </div>
-        <div class="quote-card q4">
-          <div class="quote-text">« Le partenariat, j'y crois. Je veux y contribuer concrètement. »</div>
-          <div class="quote-label">Engagement partenarial</div>
-        </div>
-      </div>
+<div class="sc" data-s="3"><div class="sl">Branche 2 &#8212; 4/5</div><h2>Le lien avec l&#8217;exercice &#8212; et les limites</h2><p class="it">La mani&#232;re dont on forme dit quelque chose de la mani&#232;re dont on con&#231;oit le soin. Mais tout ne se pr&#234;te pas au partenariat.</p>
+<div class="cd" style="border-left:3px solid var(--pu);margin-bottom:20px;cursor:default"><h3>Continuit&#233; formation-exercice</h3><div class="ds" style="line-height:1.6;margin-top:8px">La posture partenariale en soin est une orientation port&#233;e par les &#233;volutions institutionnelles r&#233;centes. Former &#224; cette posture ne peut pas se faire depuis une posture qui l&#8217;ignore.</div></div>
+<div class="tc"><div class="cy"><h4>Situations qui s&#8217;y pr&#234;tent</h4><p>Enseignements cliniques, relationnels, d&#233;cisionnels, &#233;thiques. Situations o&#249; ce qui se joue engage une dimension humaine.</p></div><div class="cn"><h4>Situations qui s&#8217;y pr&#234;tent moins</h4><p>Contenus strictement factuels, techniques sans dimension relationnelle, s&#233;ances &#224; tr&#232;s fort contenu acad&#233;mique pur.</p></div></div>
+<p class="nt" style="font-style:normal">Le discernement sur ses propres enseignements est un acte p&#233;dagogique &#8212; le parcours ne prescrit pas, il aide &#224; formuler la question.</p></div>
 
-      <p class="note">Ces motivations ne sont pas exclusives. La plupart des patients partenaires en croisent plusieurs, qui évoluent dans le temps.</p>
-      <p class="note" style="color: var(--c-teal); font-style: normal; margin-top: 12px; font-size: 12px;">[Citations illustratives — à remplacer par des témoignages réels avec consentement.]</p>
-    </div>
+<div class="sc" data-s="4"><div class="sl">Branche 2 &#8212; 5/5</div><h2>Pour aller plus loin</h2>
+<div class="ls"><div class="lst">Continuer le parcours</div><div class="lc" onclick="goB('b3')"><div><h3>Comment &#231;a se passe concr&#232;tement&#160;?</h3><div class="sb">Branche B3</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b4')"><div><h3>Dans quel cadre&#160;?</h3><div class="sb">Branche B4</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b1')"><div><h3>Qui sont les patients partenaires&#160;?</h3><div class="sb">Branche B1</div></div><span class="ar">&#8594;</span></div></div>
+<div class="ls"><div class="lst">Approfondir</div><div class="dh"><h4>&#127891; Se former au partenariat</h4><p>Le DU PaPPS (Nantes) et d&#8217;autres formations universitaires forment conjointement patients et professionnels. Une mani&#232;re d&#8217;aller au-del&#224; de la sensibilisation.</p></div></div>
+<div style="margin-top:20px"><div class="lc hm" onclick="goH()"><div><h3>Retour &#224; l&#8217;accueil</h3></div><span class="ar">&#8592;</span></div></div></div>
+</div></div>
 
-    <!-- ── Écran 4 ── -->
-    <div class="screen" data-screen="3">
-      <div class="screen-label">Branche 1 — écran 4 / 6</div>
-      <h2>Une posture, pas un rôle</h2>
-      <p class="intro">Être patient partenaire, c'est une manière d'être présent dans un dispositif de formation. Quatre caractéristiques la définissent.</p>
+<div class="pg" id="pg-b3"><div class="bc"><div class="pb" id="pr-b3"></div>
+<div class="sc on" data-s="0"><div class="sl">Branche 3 &#8212; 1/5</div><h2>Comment &#231;a se passe concr&#232;tement&#160;?</h2><p class="it">On pr&#233;pare, on coordonne, on cadre. Une s&#233;ance avec un patient partenaire a ses sp&#233;cificit&#233;s &#8212; mais ce n&#8217;est pas un saut dans le vide.</p>
+<div class="tl"><div class="ts"><h4>1. Identifier un patient partenaire</h4><p>Se rapprocher de la structure d&#8217;appui de l&#8217;&#233;tablissement ou d&#8217;un r&#233;seau de patients partenaires.</p></div>
+<div class="ts"><h4>2. D&#233;finir les objectifs p&#233;dagogiques</h4><p>Ce que la s&#233;ance vise, &#224; quoi le patient partenaire contribue, comment cela s&#8217;articule avec le cours.</p></div>
+<div class="ts"><h4>3. Pr&#233;parer en co-conception</h4><p>La s&#233;ance se construit avec le patient partenaire &#8212; pas pour lui, ni seul de son c&#244;t&#233;. C&#8217;est l&#224; que le partenariat commence.</p></div>
+<div class="ts"><h4>4. Briefer tout le monde</h4><p>Le patient partenaire et les &#233;tudiants savent ce qui est attendu&#160;: format, posture, r&#233;partition des r&#244;les.</p></div>
+<div class="ts"><h4>5. Cadrer pendant la s&#233;ance</h4><p>L&#8217;enseignant garde la main sur la conduite p&#233;dagogique. Le patient partenaire apporte sa voix.</p></div>
+<div class="ts"><h4>6. &#201;valuer apr&#232;s coup</h4><p>Ce qui a fonctionn&#233;, ce qui n&#8217;a pas fonctionn&#233; &#8212; avec le patient partenaire, les &#233;tudiants, un coll&#232;gue.</p></div></div></div>
 
-      <div class="posture-grid">
-        <div class="posture-card p1" onclick="this.classList.toggle('open')">
-          <h3>Réciprocité</h3>
-          <div class="summary">Co-construction entre enseignant et patient partenaire.</div>
-          <div class="detail">Le patient partenaire et l'enseignant co-construisent ce qui se passe dans la séance. Chacun mobilise un type de savoir distinct — savoir expérientiel pour l'un, savoir académique ou clinique pour l'autre — et ces savoirs se répondent sans se confondre.</div>
-        </div>
-        <div class="posture-card p2" onclick="this.classList.toggle('open')">
-          <h3>Complémentarité</h3>
-          <div class="summary">Deux savoirs qui se complètent, sans hiérarchie.</div>
-          <div class="detail">L'expérience vécue d'une maladie ne remplace pas la connaissance scientifique. La connaissance scientifique n'épuise pas l'expérience vécue. Les deux se complètent ; aucune ne prime sur l'autre dans le dispositif de formation.</div>
-        </div>
-        <div class="posture-card p3" onclick="this.classList.toggle('open')">
-          <h3>≠ revendication</h3>
-          <div class="summary">Pas un plaidoyer militant.</div>
-          <div class="detail">Le patient partenaire n'est pas un militant venu porter un plaidoyer. Il peut avoir des convictions sur le système de santé ; elles ne constituent pas son propos dans une séance de formation. Sa contribution s'inscrit dans un cadre pédagogique négocié.</div>
-        </div>
-        <div class="posture-card p4" onclick="this.classList.toggle('open')">
-          <h3>≠ témoignage passif</h3>
-          <div class="summary">Contribue à la conception, pas seulement au récit.</div>
-          <div class="detail">Le patient partenaire ne se contente pas de raconter. Il contribue à ce qui se passe dans la séance, à la manière dont elle est conçue et animée. La distinction avec le témoignage est précisément là : il est acteur de la séance, pas seulement intervenant.</div>
-        </div>
-      </div>
-    </div>
+<div class="sc" data-s="1"><div class="sl">Branche 3 &#8212; 2/5</div><h2>Ce que &#231;a repr&#233;sente en temps</h2><p class="it">Int&#233;grer un patient partenaire est un engagement. Voici un ordre de grandeur.</p>
+<div class="cg" style="grid-template-columns:1fr 1fr"><div class="cd" style="text-align:center;border-top:3px solid var(--tl);cursor:default"><h3>2 &#224; 3 heures</h3><div class="ds">Pr&#233;paration et coordination, r&#233;parties sur plusieurs &#233;changes</div></div><div class="cd" style="text-align:center;border-top:3px solid var(--bl);cursor:default"><h3>30 min &#224; 1 heure</h3><div class="ds">&#201;valuation apr&#232;s la s&#233;ance</div></div></div>
+<p class="nt" style="font-style:normal">Ce temps se concentre sur la premi&#232;re s&#233;ance. Avec l&#8217;exp&#233;rience, l&#8217;investissement diminue.</p><p class="nt" style="font-size:12px">[Ordres de grandeur indicatifs &#8212; peuvent varier selon les &#233;tablissements.]</p></div>
 
-    <!-- ── Écran 5 ── -->
-    <div class="screen" data-screen="4">
-      <div class="screen-label">Branche 1 — écran 5 / 6</div>
-      <h2>Quelles différences entre les figures du patient ?</h2>
-      <p class="intro">Plusieurs figures du patient interviennent en formation. Elles ne sont pas interchangeables.</p>
+<div class="sc" data-s="2"><div class="sl">Branche 3 &#8212; 3/5</div><h2>Quand &#231;a ne se passe pas comme pr&#233;vu</h2><p class="it">Une s&#233;ance avec patient partenaire n&#8217;est jamais totalement pr&#233;visible. C&#8217;est ce qui en fait la valeur &#8212; et ce qui peut d&#233;stabiliser.</p>
+<div class="cg" style="grid-template-columns:1fr"><div class="cd" style="border-left:3px solid var(--tl);cursor:default"><h3>L&#8217;enseignant garde la main</h3><div class="ds">Reprendre la parole, recadrer, faire une pause, cl&#244;turer plus t&#244;t. La conduite p&#233;dagogique reste la sienne.</div></div>
+<div class="cd" style="border-left:3px solid var(--bl);cursor:default"><h3>Le patient partenaire n&#8217;est pas seul</h3><div class="ds">L&#8217;enseignant reste co-animateur, pas spectateur. La posture partenariale ne signifie pas s&#8217;effacer.</div></div>
+<div class="cd" style="border-left:3px solid var(--pu);cursor:default"><h3>Personne n&#8217;est seul</h3><div class="ds">Des pairs exp&#233;riment&#233;s, des structures d&#8217;appui, des retours d&#8217;exp&#233;rience. Un impr&#233;vu ne se g&#232;re pas dans l&#8217;urgence silencieuse.</div></div></div></div>
 
-      <div class="figure-list">
-        <div class="figure-item highlight">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Patient partenaire</div>
-          <div class="figure-desc">Co-conçoit et co-anime une séance avec l'enseignant, en mobilisant son savoir expérientiel.</div>
-        </div>
-        <div class="figure-item">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Patient témoin</div>
-          <div class="figure-desc">Apporte un récit de son expérience, sans participer à la conception ni à l'animation.</div>
-        </div>
-        <div class="figure-item">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Patient ressource</div>
-          <div class="figure-desc">Met à disposition son expérience comme matériau pédagogique, sans présence nécessaire en séance.</div>
-        </div>
-        <div class="figure-item">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Patient expert</div>
-          <div class="figure-desc">Mobilise une expérience approfondie, souvent associée à une formation spécifique ou à un engagement associatif.</div>
-        </div>
-        <div class="figure-item">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Patient simulé</div>
-          <div class="figure-desc">Joue un rôle de patient dans un exercice de simulation. Comédien formé, pas témoin d'une expérience réelle.</div>
-        </div>
-        <div class="figure-item">
-          <div class="figure-dot"></div>
-          <div class="figure-name">Pair-aidant</div>
-          <div class="figure-desc">Accompagne d'autres patients dans leur parcours, plutôt que des étudiants en formation.</div>
-        </div>
-      </div>
-    </div>
+<div class="sc" data-s="3"><div class="sl">Branche 3 &#8212; 4/5</div><h2>Apr&#232;s la s&#233;ance, des retours</h2><p class="it">Une s&#233;ance avec patient partenaire n&#8217;est pas un &#233;v&#233;nement isol&#233;. Plusieurs retours sont disponibles.</p>
+<div class="pg2"><div class="pc p1" style="cursor:default"><h3>Le retour du patient partenaire</h3><div class="sm">Comment il a v&#233;cu la s&#233;ance, ce qu&#8217;il ajusterait.</div></div><div class="pc p2" style="cursor:default"><h3>Le retour des &#233;tudiants</h3><div class="sm">Ce qu&#8217;ils ont retir&#233;, ce qui leur a manqu&#233;.</div></div><div class="pc p3" style="cursor:default"><h3>Le retour de la structure d&#8217;appui</h3><div class="sm">D&#233;briefing, consolidation, pistes d&#8217;am&#233;lioration.</div></div><div class="pc p4" style="cursor:default"><h3>Le retour des coll&#232;gues</h3><div class="sm">Pairs qui ont pratiqu&#233;, &#233;changes informels.</div></div></div></div>
 
-    <!-- ── Écran 6 ── -->
-    <div class="screen" data-screen="5">
-      <div class="screen-label">Branche 1 — écran 6 / 6</div>
-      <h2>Pour aller plus loin</h2>
+<div class="sc" data-s="4"><div class="sl">Branche 3 &#8212; 5/5</div><h2>Pour aller plus loin</h2>
+<div class="ls"><div class="lst">Continuer le parcours</div><div class="lc" onclick="goB('b4')"><div><h3>Dans quel cadre&#160;?</h3><div class="sb">Branche B4</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b2')"><div><h3>Qu&#8217;est-ce que &#231;a apporte&#160;?</h3><div class="sb">Branche B2</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b1')"><div><h3>Qui sont les patients partenaires&#160;?</h3><div class="sb">Branche B1</div></div><span class="ar">&#8594;</span></div></div>
+<div class="ls"><div class="lst">Approfondir</div><div class="dh"><h4>&#127891; Se former &#224; la co-conception</h4><p>Le DU PaPPS (Nantes) et d&#8217;autres formations universitaires abordent en profondeur la pr&#233;paration et la co-animation de s&#233;ances.</p></div></div>
+<div style="margin-top:20px"><div class="lc hm" onclick="goH()"><div><h3>Retour &#224; l&#8217;accueil</h3></div><span class="ar">&#8592;</span></div></div></div>
+</div></div>
 
-      <div class="link-section">
-        <div class="link-section-title">Continuer le parcours</div>
-        <div class="link-card" onclick="goHub()">
-          <div>
-            <h3>Qu'est-ce que ça apporte aux enseignements ?</h3>
-            <div class="sub">Branche B2 — bientôt disponible</div>
-          </div>
-          <span class="arrow">→</span>
-        </div>
-        <div class="link-card" onclick="goHub()">
-          <div>
-            <h3>Comment ça se passe concrètement ?</h3>
-            <div class="sub">Branche B3 — bientôt disponible</div>
-          </div>
-          <span class="arrow">→</span>
-        </div>
-        <div class="link-card" onclick="goHub()">
-          <div>
-            <h3>Dans quel cadre ?</h3>
-            <div class="sub">Branche B4 — bientôt disponible</div>
-          </div>
-          <span class="arrow">→</span>
-        </div>
-      </div>
+<div class="pg" id="pg-b4"><div class="bc"><div class="pb" id="pr-b4"></div>
+<div class="sc on" data-s="0"><div class="sl">Branche 4 &#8212; 1/5</div><h2>Ce qui ne se n&#233;gocie pas</h2><p class="it">On ne construit pas seul un cadre &#233;thique &#224; chaque s&#233;ance. Il existe. Il est pens&#233;. Il prot&#232;ge autant le patient partenaire que la d&#233;marche p&#233;dagogique.</p>
+<div class="pg2"><div class="pc p1" style="cursor:default"><h3>Consentement &#233;clair&#233;</h3><div class="sm">Le patient partenaire sait exactement &#224; quoi il s&#8217;engage&#160;: objet, public, format, dur&#233;e, attentes, limites.</div></div>
+<div class="pc p2" style="cursor:default"><h3>Information pr&#233;alable</h3><div class="sm">Les &#233;l&#233;ments n&#233;cessaires &#224; sa d&#233;cision sont transmis en amont &#8212; pas le jour de la s&#233;ance.</div></div>
+<div class="pc p3" style="cursor:default"><h3>Droit de retrait</h3><div class="sm">Le patient partenaire peut se retirer avant ou pendant, sans avoir &#224; se justifier.</div></div>
+<div class="pc p4" style="cursor:default"><h3>Limites du r&#244;le</h3><div class="sm">Ni enseignant, ni &#233;valuateur, ni th&#233;rapeute. Son r&#244;le est clarifi&#233; et born&#233;.</div></div></div></div>
 
-      <div class="link-section">
-        <div class="link-section-title">Ressources et contacts</div>
-        <div class="resource-tags">
-          <a class="resource-tag" href="https://ceppp.ca" target="_blank" rel="noopener">CEPPP Montréal</a>
-          <a class="resource-tag" href="https://www.france-assos-sante.org" target="_blank" rel="noopener">France Assos Santé</a>
-          <a class="resource-tag" href="https://universitedespatients.sorbonne-universite.fr" target="_blank" rel="noopener">Université des Patients</a>
-        </div>
-      </div>
+<div class="sc" data-s="1"><div class="sl">Branche 4 &#8212; 2/5</div><h2>Une position qui appelle une attention particuli&#232;re</h2><p class="it">Les patients partenaires partagent une exp&#233;rience qui peut &#234;tre sensible, parfois douloureuse. Leur engagement les expose &#8212; dans un cadre qui doit les prot&#233;ger.</p>
+<div class="cg" style="grid-template-columns:1fr"><div class="cd" style="border-left:3px solid var(--tl);cursor:default"><h3>Respect du rythme</h3><div class="ds">Le patient partenaire parle s&#8217;il le souhaite, se tait s&#8217;il le pr&#233;f&#232;re. Pas de pression de performance.</div></div>
+<div class="cd" style="border-left:3px solid var(--bl);cursor:default"><h3>Droit de ne pas r&#233;pondre</h3><div class="ds">Il peut choisir de ne pas r&#233;pondre &#224; une question, sans explication. Il peut interrompre son intervention.</div></div>
+<div class="cd" style="border-left:3px solid var(--pu);cursor:default"><h3>Accompagnement</h3><div class="ds">L&#224; o&#249; des structures d&#8217;appui existent, le patient partenaire est pr&#233;par&#233;, accompagn&#233;, d&#233;brief&#233;. On ne porte pas seul cette vigilance.</div></div></div></div>
 
-      <div style="margin-top: 28px;">
-        <div class="link-card" onclick="goHub()" style="border-color: var(--c-teal); background: var(--c-teal-light);">
-          <div>
-            <h3 style="color: var(--c-teal-dark);">Retour à l'accueil</h3>
-            <div class="sub">Choisir une autre branche</div>
-          </div>
-          <span class="arrow" style="color: var(--c-teal-dark);">←</span>
-        </div>
-      </div>
-    </div>
+<div class="sc" data-s="2"><div class="sl">Branche 4 &#8212; 3/5</div><h2>Les appuis qui existent</h2><p class="it">On n&#8217;est pas seul dans cette d&#233;marche. Des structures, des outils, des formations existent.</p>
+<div class="cg" style="grid-template-columns:1fr"><div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--tl)"><h3>Structures d&#8217;appui universitaires</h3><div class="ds">Accompagnement, mise en relation, aspects contractuels.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Plusieurs universit&#233;s disposent de structures d&#233;di&#233;es&#160;: MAPPS &#224; Nantes, DPPER &#224; Rennes, CI3P &#224; Nice. Elles prennent en charge la coordination, le recrutement et les aspects contractuels.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--pu)"><h3>Formations dipl&#244;mantes</h3><div class="ds">Des DU qui forment patients et professionnels ensemble.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Le DU PaPPS de Nantes, le DIU de Rennes, les DU de Lyon, Nice, Montpellier &#8212; ces formations abordent en profondeur le cadre &#233;thique, institutionnel et m&#233;thodologique du partenariat.</div></div>
+<div class="cd" onclick="this.classList.toggle('op')" style="border-left:3px solid var(--co)"><h3>Outils disponibles</h3><div class="ds">Chartes, fiches de mission, trames p&#233;dagogiques.</div><div class="hn">D&#233;tail &#8594;</div><div class="dt">Selon les &#233;tablissements, des outils existent d&#233;j&#224;. Pas &#224; r&#233;inventer &#8212; &#224; identifier dans sa propre institution ou &#224; adapter.</div></div></div></div>
 
-  </div>
+<div class="sc" data-s="3"><div class="sl">Branche 4 &#8212; 4/5</div><h2>La pratique se construit au fil du temps</h2>
+<div class="sn">Personne n&#8217;a une pratique parfaite d&#232;s la premi&#232;re s&#233;ance. L&#8217;int&#233;gration d&#8217;un patient partenaire s&#8217;apprend &#8212; comme tout acte p&#233;dagogique &#8212; en le faisant, en l&#8217;ajustant, en revenant dessus.</div>
+<div class="cg" style="grid-template-columns:1fr 1fr"><div class="cd" style="text-align:center;border-top:3px solid var(--tl);cursor:default"><h3>D&#233;briefing</h3><div class="ds">Retour apr&#232;s la s&#233;ance, ajustements pour la suivante</div></div><div class="cd" style="text-align:center;border-top:3px solid var(--bl);cursor:default"><h3>Pairs</h3><div class="ds">&#201;changes avec des coll&#232;gues qui ont pratiqu&#233;</div></div></div>
+<p class="nt" style="font-style:normal">S&#8217;engager dans le partenariat, c&#8217;est s&#8217;inscrire dans un cheminement &#8212; le sien, celui du patient partenaire, celui d&#8217;une pratique collective.</p></div>
 
-  <!-- Nav bottom -->
-  <div class="nav-bottom" id="nav-bottom">
-    <div class="nav-inner">
-      <button class="nav-btn prev" id="btn-prev" onclick="prevScreen()">← Précédent</button>
-      <span class="nav-counter" id="nav-counter">1 / 6</span>
-      <button class="nav-btn next" id="btn-next" onclick="nextScreen()">Suivant →</button>
-    </div>
-  </div>
-</div>
+<div class="sc" data-s="4"><div class="sl">Branche 4 &#8212; 5/5</div><h2>Pour aller plus loin</h2>
+<div class="ls"><div class="lst">Continuer le parcours</div><div class="lc" onclick="goB('b1')"><div><h3>Qui sont les patients partenaires&#160;?</h3><div class="sb">Branche B1</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b2')"><div><h3>Qu&#8217;est-ce que &#231;a apporte&#160;?</h3><div class="sb">Branche B2</div></div><span class="ar">&#8594;</span></div><div class="lc" onclick="goB('b3')"><div><h3>Comment &#231;a se passe concr&#232;tement&#160;?</h3><div class="sb">Branche B3</div></div><span class="ar">&#8594;</span></div></div>
+<div class="ls"><div class="lst">Se former</div><div class="dh"><h4>&#127891; Approfondir le cadre du partenariat</h4><p>Le DU PaPPS (Nantes) et d&#8217;autres formations universitaires abordent en profondeur le cadre &#233;thique, institutionnel et m&#233;thodologique.</p></div></div>
+<div class="ls"><div class="lst">Ressources</div><div class="rts"><a class="rt" href="https://ceppp.ca" target="_blank" rel="noopener">CEPPP Montr&#233;al</a><a class="rt" href="https://www.france-assos-sante.org" target="_blank" rel="noopener">France Assos Sant&#233;</a><a class="rt" href="https://universitedespatients.sorbonne-universite.fr" target="_blank" rel="noopener">Universit&#233; des Patients</a><a class="rt" href="https://ci3p.univ-cotedazur.fr" target="_blank" rel="noopener">CI3P Nice</a></div></div>
+<div style="margin-top:20px"><div class="lc hm" onclick="goH()"><div><h3>Retour &#224; l&#8217;accueil</h3></div><span class="ar">&#8592;</span></div></div></div>
+</div></div>
+
+<div class="nb" id="nb"><div class="ni"><button class="nb2 pv" id="bp" onclick="pS()">&#8592; Pr&#233;c&#233;dent</button><span class="nc" id="nc"></span><button class="nb2 nx" id="bn" onclick="nS()">Suivant &#8594;</button></div></div>
 
 <script>
-let currentScreen = 0;
-const totalScreens = 6;
-
-function goHub() {
-  document.getElementById('page-b1').classList.remove('active');
-  document.getElementById('page-hub').classList.add('active');
-  document.getElementById('btn-home').style.display = 'none';
-  document.getElementById('nav-bottom').style.display = 'none';
-  window.scrollTo(0, 0);
-}
-
-function goB1() {
-  document.getElementById('page-hub').classList.remove('active');
-  document.getElementById('page-b1').classList.add('active');
-  document.getElementById('btn-home').style.display = 'block';
-  document.getElementById('nav-bottom').style.display = 'block';
-  currentScreen = 0;
-  updateScreens();
-  window.scrollTo(0, 0);
-}
-
-function nextScreen() {
-  if (currentScreen < totalScreens - 1) {
-    currentScreen++;
-    updateScreens();
-    window.scrollTo(0, 0);
-  }
-}
-
-function prevScreen() {
-  if (currentScreen > 0) {
-    currentScreen--;
-    updateScreens();
-    window.scrollTo(0, 0);
-  }
-}
-
-function updateScreens() {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelector(`.screen[data-screen="${currentScreen}"]`).classList.add('active');
-
-  document.querySelectorAll('.progress-dot').forEach((d, i) => {
-    d.classList.remove('done', 'current');
-    if (i < currentScreen) d.classList.add('done');
-    if (i === currentScreen) d.classList.add('current');
-  });
-
-  document.getElementById('nav-counter').textContent = `${currentScreen + 1} / ${totalScreens}`;
-  document.getElementById('btn-prev').disabled = currentScreen === 0;
-  document.getElementById('btn-next').disabled = currentScreen === totalScreens - 1;
-}
-
-// Init
-document.getElementById('nav-bottom').style.display = 'none';
+const B={b1:6,b2:5,b3:5,b4:5};let c='',x=0;
+function goH(){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById('pg-hub').classList.add('on');document.getElementById('bh').style.display='none';document.getElementById('nb').style.display='none';c='';window.scrollTo(0,0)}
+function goB(b){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));document.getElementById('pg-'+b).classList.add('on');document.getElementById('bh').style.display='block';document.getElementById('nb').style.display='block';c=b;x=0;bP(b);uS();window.scrollTo(0,0)}
+function bP(b){const r=document.getElementById('pr-'+b);r.innerHTML='';for(let i=0;i<B[b];i++){const d=document.createElement('div');d.className='pd';d.dataset.step=i;r.appendChild(d)}}
+function nS(){if(x<B[c]-1){x++;uS();window.scrollTo(0,0)}}
+function pS(){if(x>0){x--;uS();window.scrollTo(0,0)}}
+function uS(){const p=document.getElementById('pg-'+c);p.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));p.querySelector('.sc[data-s="'+x+'"]').classList.add('on');document.getElementById('pr-'+c).querySelectorAll('.pd').forEach((d,i)=>{d.classList.remove('dn','cu');if(i<x)d.classList.add('dn');if(i===x)d.classList.add('cu')});document.getElementById('nc').textContent=(x+1)+' / '+B[c];document.getElementById('bp').disabled=x===0;document.getElementById('bn').disabled=x===B[c]-1}
 </script>
-
 </body>
 </html>
