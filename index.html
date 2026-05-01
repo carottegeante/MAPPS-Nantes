@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le partenariat patient en enseignement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-bg: #FAFAF7;
+  --c-surface: #FFFFFF;
+  --c-text: #1A1A18;
+  --c-text-2: #5A5A55;
+  --c-text-3: #8A8A82;
+  --c-border: #E5E5DF;
+  --c-border-light: #F0F0EB;
+  --c-teal: #0C8C6A;
+  --c-teal-light: #E6F5F0;
+  --c-teal-dark: #06614A;
+  --c-purple: #6B5CE7;
+  --c-purple-light: #EEEDFE;
+  --c-coral: #D85A30;
+  --c-coral-light: #FDF0EB;
+  --c-blue: #2E6BC6;
+  --c-blue-light: #EAF0FB;
+  --c-amber: #B8860B;
+  --c-amber-light: #FDF6E3;
+  --c-warm: #F5F0E8;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --max-w: 720px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--c-bg);
+  color: var(--c-text);
+  line-height: 1.65;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  display: none;
+  min-height: 100dvh;
+  animation: fadeIn 0.4s ease;
+}
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── HEADER ─── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 250, 247, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--c-border-light);
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-brand {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--c-text-2);
+  letter-spacing: 0.02em;
+}
+.header-back {
+  font-size: 13px;
+  color: var(--c-teal);
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+.header-back:hover { background: var(--c-teal-light); }
+
+/* ─── HERO / HUB ─── */
+.hub-hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 60px 24px 20px;
+}
+.hub-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--c-text);
+  margin-bottom: 16px;
+}
+.hub-hero p {
+  font-size: 17px;
+  color: var(--c-text-2);
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+.hub-grid {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 20px 24px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 520px) {
+  .hub-grid { grid-template-columns: 1fr; }
+}
+
+.hub-card {
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--c-border);
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.hub-card:hover {
+  border-color: var(--c-teal);
+  box-shadow: var(--shadow), 0 0 0 1px var(--c-teal);
+  transform: translateY(-2px);
+}
+.hub-card.disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+.hub-card-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.hub-card h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.hub-card p {
+  font-size: 14px;
+  color: var(--c-text-2);
+  line-height: 1.55;
+}
+.hub-card .tag-soon {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--c-text-3);
+  background: var(--c-border-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+.hub-card .tag-active {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--c-teal-dark);
+  background: var(--c-teal-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 12px;
+}
+
+.hub-footer {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  font-size: 13px;
+  color: var(--c-text-3);
+  line-height: 1.6;
+}
+.hub-suggestion {
+  background: var(--c-warm);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--c-text-2);
+}
+.hub-suggestion strong { color: var(--c-text); font-weight: 500; }
+
+/* ─── BRANCH SCREENS ─── */
+.branch-container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 32px 24px 100px;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 40px;
+}
+.progress-dot {
+  height: 3px;
+  border-radius: 2px;
+  flex: 1;
+  background: var(--c-border);
+  transition: background var(--transition);
+}
+.progress-dot.done { background: var(--c-teal); }
+.progress-dot.current { background: var(--c-teal); }
+
+.screen {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+.screen.active { display: block; }
+
+.screen-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-teal);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.screen h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.screen .intro {
+  font-size: 17px;
+  color: var(--c-text-2);
+  margin-bottom: 28px;
+  max-width: 560px;
+  line-height: 1.7;
+}
+.screen .note {
+  font-size: 14px;
+  color: var(--c-text-3);
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* ─── CARDS ─── */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.profile-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.profile-card:hover {
+  border-color: var(--c-teal);
+  box-shadow: var(--shadow);
+}
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-teal-light);
+  color: var(--c-teal-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.profile-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.profile-card .desc {
+  font-size: 13px;
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+.profile-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-border-light);
+  font-size: 13px;
+  color: var(--c-text-2);
+  line-height: 1.55;
+  display: none;
+}
+.profile-card.open .profile-detail { display: block; }
+.profile-card .tap-hint {
+  font-size: 11px;
+  color: var(--c-teal);
+  margin-top: 8px;
+  font-weight: 500;
+}
+.profile-card.open .tap-hint { display: none; }
+
+/* ─── ECOSYSTEM CARDS ─── */
+.eco-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+.eco-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.eco-card:hover {
+  border-color: var(--c-purple);
+  box-shadow: var(--shadow);
+}
+.eco-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  display: block;
+}
+.eco-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.eco-card .desc {
+  font-size: 12px;
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+.eco-detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-border-light);
+  font-size: 12px;
+  color: var(--c-text-2);
+  line-height: 1.5;
+  text-align: left;
+  display: none;
+}
+.eco-card.open .eco-detail { display: block; }
+
+/* ─── QUOTE CARDS ─── */
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+@media (max-width: 520px) {
+  .quote-grid { grid-template-columns: 1fr; }
+}
+.quote-card {
+  border-radius: var(--radius);
+  padding: 20px;
+  border-left: 4px solid;
+}
+.quote-card.q1 { background: var(--c-teal-light); border-color: var(--c-teal); }
+.quote-card.q2 { background: var(--c-blue-light); border-color: var(--c-blue); }
+.quote-card.q3 { background: var(--c-purple-light); border-color: var(--c-purple); }
+.quote-card.q4 { background: var(--c-coral-light); border-color: var(--c-coral); }
+.quote-card .quote-text {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--c-text);
+  margin-bottom: 8px;
+}
+.quote-card .quote-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-text-2);
+}
+
+/* ─── POSTURE CARDS ─── */
+.posture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+@media (max-width: 520px) {
+  .posture-grid { grid-template-columns: 1fr; }
+}
+.posture-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 20px;
+  border-left: 4px solid;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.posture-card:hover { box-shadow: var(--shadow); }
+.posture-card.p1 { border-left-color: var(--c-teal); }
+.posture-card.p2 { border-left-color: var(--c-blue); }
+.posture-card.p3 { border-left-color: var(--c-coral); }
+.posture-card.p4 { border-left-color: var(--c-purple); }
+.posture-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.posture-card .summary {
+  font-size: 13px;
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+.posture-card .detail {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--c-border-light);
+  font-size: 13px;
+  color: var(--c-text-2);
+  line-height: 1.55;
+  display: none;
+}
+.posture-card.open .detail { display: block; }
+
+/* ─── FIGURES LIST ─── */
+.figure-list { margin: 24px 0; }
+.figure-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 6px;
+  transition: background var(--transition);
+}
+.figure-item:hover { background: var(--c-border-light); }
+.figure-item.highlight {
+  background: var(--c-teal-light);
+  border: 1px solid rgba(12, 140, 106, 0.2);
+}
+.figure-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.figure-item.highlight .figure-dot { background: var(--c-teal); }
+.figure-item:not(.highlight) .figure-dot { background: var(--c-border); }
+.figure-name {
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 130px;
+  flex-shrink: 0;
+}
+.figure-desc {
+  font-size: 14px;
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+
+/* ─── LINK CARDS (screen 6) ─── */
+.link-section { margin: 24px 0; }
+.link-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  color: inherit;
+}
+.link-card:hover {
+  border-color: var(--c-teal);
+  box-shadow: var(--shadow);
+  transform: translateX(4px);
+}
+.link-card h3 {
+  font-size: 14px;
+  font-weight: 500;
+}
+.link-card .sub {
+  font-size: 12px;
+  color: var(--c-text-3);
+}
+.link-card .arrow {
+  margin-left: auto;
+  color: var(--c-text-3);
+  font-size: 18px;
+  transition: transform var(--transition);
+}
+.link-card:hover .arrow { transform: translateX(4px); color: var(--c-teal); }
+
+.resource-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.resource-tag {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--c-amber-light);
+  color: var(--c-amber);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: 1px solid transparent;
+}
+.resource-tag:hover {
+  border-color: var(--c-amber);
+}
+
+/* ─── NAVIGATION BOTTOM ─── */
+.nav-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(250, 250, 247, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--c-border-light);
+  z-index: 100;
+}
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-btn {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.nav-btn.prev {
+  background: none;
+  color: var(--c-text-2);
+}
+.nav-btn.prev:hover { background: var(--c-border-light); }
+.nav-btn.next {
+  background: var(--c-teal);
+  color: white;
+}
+.nav-btn.next:hover { background: var(--c-teal-dark); }
+.nav-btn:disabled { opacity: 0.3; pointer-events: none; }
+.nav-counter {
+  font-size: 13px;
+  color: var(--c-text-3);
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-brand">Le partenariat patient en enseignement</span>
+    <button class="header-back" id="btn-home" onclick="goHub()" style="display:none;">← Accueil</button>
+  </div>
+</header>
+
+<!-- ════════════════ HUB PAGE ════════════════ -->
+<div class="page active" id="page-hub">
+
+  <div class="hub-hero">
+    <h1>Le partenariat avec les patients dans les enseignements en santé</h1>
+    <p>Un parcours pour découvrir qui sont les patients partenaires, ce qu'ils apportent, et comment travailler avec eux.</p>
+  </div>
+
+  <div class="hub-grid">
+    <div class="hub-card" onclick="goB1()">
+      <div class="hub-card-num">Branche 1</div>
+      <h2>Qui sont les patients partenaires ?</h2>
+      <p>Rencontrer ces personnes, leur parcours, leur posture. Comprendre ce qui distingue le partenariat des autres formes de présence du patient en formation.</p>
+      <span class="tag-active">Accessible</span>
+    </div>
+
+    <div class="hub-card disabled">
+      <div class="hub-card-num">Branche 2</div>
+      <h2>Qu'est-ce que ça apporte aux enseignements ?</h2>
+      <p>Ce que l'intervention d'un patient partenaire produit dans une séance de formation, pour les étudiants et pour l'enseignant.</p>
+      <span class="tag-soon">Bientôt</span>
+    </div>
+
+    <div class="hub-card disabled">
+      <div class="hub-card-num">Branche 3</div>
+      <h2>Comment ça se passe concrètement ?</h2>
+      <p>Préparer une séance, se coordonner, gérer le temps. Les étapes pratiques d'un enseignement avec un patient partenaire.</p>
+      <span class="tag-soon">Bientôt</span>
+    </div>
+
+    <div class="hub-card disabled">
+      <div class="hub-card-num">Branche 4</div>
+      <h2>Dans quel cadre ?</h2>
+      <p>Recrutement, rémunération, éthique, accompagnement institutionnel. Les conditions qui soutiennent le partenariat.</p>
+      <span class="tag-soon">Bientôt</span>
+    </div>
+  </div>
+
+  <div class="hub-footer">
+    <div class="hub-suggestion">
+      <strong>Parcours suggéré :</strong> B1 → B2 → B3 → B4. Chaque branche est aussi consultable séparément, dans l'ordre qui convient.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ B1 SCREENS ════════════════ -->
+<div class="page" id="page-b1">
+  <div class="branch-container">
+
+    <div class="progress-bar" id="progress">
+      <div class="progress-dot" data-step="0"></div>
+      <div class="progress-dot" data-step="1"></div>
+      <div class="progress-dot" data-step="2"></div>
+      <div class="progress-dot" data-step="3"></div>
+      <div class="progress-dot" data-step="4"></div>
+      <div class="progress-dot" data-step="5"></div>
+    </div>
+
+    <!-- ── Écran 1 ── -->
+    <div class="screen active" data-screen="0">
+      <div class="screen-label">Branche 1 — écran 1 / 6</div>
+      <h2>Qui sont les patients partenaires ?</h2>
+      <p class="intro">Des personnes ayant traversé un parcours de soin, qui ont choisi d'engager cette expérience dans la formation des professionnels de santé.</p>
+
+      <div class="profile-grid">
+        <div class="profile-card" onclick="this.classList.toggle('open')">
+          <div class="profile-avatar">M</div>
+          <h3>Marie</h3>
+          <div class="desc">Parcours en oncologie. Engagée depuis 3 ans.</div>
+          <div class="tap-hint">Découvrir →</div>
+          <div class="profile-detail">Après un parcours de soins en oncologie, Marie a souhaité que son expérience serve à la formation des futurs soignants. Elle intervient régulièrement auprès d'étudiants en médecine.</div>
+        </div>
+        <div class="profile-card" onclick="this.classList.toggle('open')">
+          <div class="profile-avatar">T</div>
+          <h3>Thomas</h3>
+          <div class="desc">Maladie chronique. Intervient en odontologie.</div>
+          <div class="tap-hint">Découvrir →</div>
+          <div class="profile-detail">Vivant avec une maladie chronique depuis l'adolescence, Thomas apporte aux étudiants en odontologie un regard sur la relation de soin au long cours et sur ce que les patients n'osent pas toujours dire.</div>
+        </div>
+        <div class="profile-card" onclick="this.classList.toggle('open')">
+          <div class="profile-avatar">F</div>
+          <h3>Fatou</h3>
+          <div class="desc">Aidante familiale. Intervient en pharmacie.</div>
+          <div class="tap-hint">Découvrir →</div>
+          <div class="profile-detail">Aidante de son père pendant plusieurs années, Fatou transmet aux étudiants en pharmacie l'expérience de ceux qui accompagnent un proche malade — un rôle souvent invisible dans le parcours de soin.</div>
+        </div>
+      </div>
+
+      <p class="note">Chacun porte une histoire singulière. Ils ne parlent ni pour « les patients » en général, ni au nom d'une cause. Ils apportent ce qu'aucun manuel ne peut transmettre : ce qu'est vivre une maladie.</p>
+      <p class="note" style="color: var(--c-teal); font-style: normal; margin-top: 12px; font-size: 12px;">[Profils illustratifs — à remplacer par des témoignages réels avec consentement.]</p>
+    </div>
+
+    <!-- ── Écran 2 ── -->
+    <div class="screen" data-screen="1">
+      <div class="screen-label">Branche 1 — écran 2 / 6</div>
+      <h2>Un engagement préparé et accompagné</h2>
+      <p class="intro">Les patients partenaires ne sont pas sollicités sans préparation. Plusieurs types de structures assurent leur formation et leur accompagnement.</p>
+
+      <div class="eco-grid">
+        <div class="eco-card" onclick="this.classList.toggle('open')">
+          <span class="eco-icon">🏛</span>
+          <h3>Services universitaires</h3>
+          <div class="desc">Structures dédiées au sein des universités</div>
+          <div class="eco-detail">Des missions d'appui existent dans plusieurs universités françaises : MAPPS à Nantes, DPPER à Rennes, et des structures équivalentes ailleurs. Elles coordonnent le recrutement, la formation et l'accompagnement des patients partenaires.</div>
+        </div>
+        <div class="eco-card" onclick="this.classList.toggle('open')">
+          <span class="eco-icon">🤝</span>
+          <h3>Associations</h3>
+          <div class="desc">Réseaux de patients et d'usagers</div>
+          <div class="eco-detail">France Assos Santé, l'Université des Patients (Sorbonne), et des associations locales contribuent à la formation et à l'accompagnement des patients qui s'engagent dans l'enseignement.</div>
+        </div>
+        <div class="eco-card" onclick="this.classList.toggle('open')">
+          <span class="eco-icon">💻</span>
+          <h3>Ressources en ligne</h3>
+          <div class="desc">Formations, guides, communautés</div>
+          <div class="eco-detail">Le CEPPP (Université de Montréal) est la référence francophone. Des guides pratiques et des communautés de pratiques permettent de se former à distance.</div>
+        </div>
+      </div>
+
+      <p class="note">La préparation porte sur la posture en contexte pédagogique, l'articulation entre savoir expérientiel et savoir académique. Un accompagnement continu permet d'ajuster la posture au fil des interventions.</p>
+    </div>
+
+    <!-- ── Écran 3 ── -->
+    <div class="screen" data-screen="2">
+      <div class="screen-label">Branche 1 — écran 3 / 6</div>
+      <h2>Chaque engagement a son histoire</h2>
+
+      <div class="quote-grid">
+        <div class="quote-card q1">
+          <div class="quote-text">« Ce que j'ai vécu peut servir à former de meilleurs soignants. »</div>
+          <div class="quote-label">Rendre utile son expérience</div>
+        </div>
+        <div class="quote-card q2">
+          <div class="quote-text">« Je veux contribuer à améliorer la qualité des soins par la formation. »</div>
+          <div class="quote-label">Exigence de qualité</div>
+        </div>
+        <div class="quote-card q3">
+          <div class="quote-text">« C'est aussi un travail sur mon propre parcours. »</div>
+          <div class="quote-label">Travail réflexif</div>
+        </div>
+        <div class="quote-card q4">
+          <div class="quote-text">« Le partenariat, j'y crois. Je veux y contribuer concrètement. »</div>
+          <div class="quote-label">Engagement partenarial</div>
+        </div>
+      </div>
+
+      <p class="note">Ces motivations ne sont pas exclusives. La plupart des patients partenaires en croisent plusieurs, qui évoluent dans le temps.</p>
+      <p class="note" style="color: var(--c-teal); font-style: normal; margin-top: 12px; font-size: 12px;">[Citations illustratives — à remplacer par des témoignages réels avec consentement.]</p>
+    </div>
+
+    <!-- ── Écran 4 ── -->
+    <div class="screen" data-screen="3">
+      <div class="screen-label">Branche 1 — écran 4 / 6</div>
+      <h2>Une posture, pas un rôle</h2>
+      <p class="intro">Être patient partenaire, c'est une manière d'être présent dans un dispositif de formation. Quatre caractéristiques la définissent.</p>
+
+      <div class="posture-grid">
+        <div class="posture-card p1" onclick="this.classList.toggle('open')">
+          <h3>Réciprocité</h3>
+          <div class="summary">Co-construction entre enseignant et patient partenaire.</div>
+          <div class="detail">Le patient partenaire et l'enseignant co-construisent ce qui se passe dans la séance. Chacun mobilise un type de savoir distinct — savoir expérientiel pour l'un, savoir académique ou clinique pour l'autre — et ces savoirs se répondent sans se confondre.</div>
+        </div>
+        <div class="posture-card p2" onclick="this.classList.toggle('open')">
+          <h3>Complémentarité</h3>
+          <div class="summary">Deux savoirs qui se complètent, sans hiérarchie.</div>
+          <div class="detail">L'expérience vécue d'une maladie ne remplace pas la connaissance scientifique. La connaissance scientifique n'épuise pas l'expérience vécue. Les deux se complètent ; aucune ne prime sur l'autre dans le dispositif de formation.</div>
+        </div>
+        <div class="posture-card p3" onclick="this.classList.toggle('open')">
+          <h3>≠ revendication</h3>
+          <div class="summary">Pas un plaidoyer militant.</div>
+          <div class="detail">Le patient partenaire n'est pas un militant venu porter un plaidoyer. Il peut avoir des convictions sur le système de santé ; elles ne constituent pas son propos dans une séance de formation. Sa contribution s'inscrit dans un cadre pédagogique négocié.</div>
+        </div>
+        <div class="posture-card p4" onclick="this.classList.toggle('open')">
+          <h3>≠ témoignage passif</h3>
+          <div class="summary">Contribue à la conception, pas seulement au récit.</div>
+          <div class="detail">Le patient partenaire ne se contente pas de raconter. Il contribue à ce qui se passe dans la séance, à la manière dont elle est conçue et animée. La distinction avec le témoignage est précisément là : il est acteur de la séance, pas seulement intervenant.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Écran 5 ── -->
+    <div class="screen" data-screen="4">
+      <div class="screen-label">Branche 1 — écran 5 / 6</div>
+      <h2>Quelles différences entre les figures du patient ?</h2>
+      <p class="intro">Plusieurs figures du patient interviennent en formation. Elles ne sont pas interchangeables.</p>
+
+      <div class="figure-list">
+        <div class="figure-item highlight">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Patient partenaire</div>
+          <div class="figure-desc">Co-conçoit et co-anime une séance avec l'enseignant, en mobilisant son savoir expérientiel.</div>
+        </div>
+        <div class="figure-item">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Patient témoin</div>
+          <div class="figure-desc">Apporte un récit de son expérience, sans participer à la conception ni à l'animation.</div>
+        </div>
+        <div class="figure-item">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Patient ressource</div>
+          <div class="figure-desc">Met à disposition son expérience comme matériau pédagogique, sans présence nécessaire en séance.</div>
+        </div>
+        <div class="figure-item">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Patient expert</div>
+          <div class="figure-desc">Mobilise une expérience approfondie, souvent associée à une formation spécifique ou à un engagement associatif.</div>
+        </div>
+        <div class="figure-item">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Patient simulé</div>
+          <div class="figure-desc">Joue un rôle de patient dans un exercice de simulation. Comédien formé, pas témoin d'une expérience réelle.</div>
+        </div>
+        <div class="figure-item">
+          <div class="figure-dot"></div>
+          <div class="figure-name">Pair-aidant</div>
+          <div class="figure-desc">Accompagne d'autres patients dans leur parcours, plutôt que des étudiants en formation.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Écran 6 ── -->
+    <div class="screen" data-screen="5">
+      <div class="screen-label">Branche 1 — écran 6 / 6</div>
+      <h2>Pour aller plus loin</h2>
+
+      <div class="link-section">
+        <div class="link-section-title">Continuer le parcours</div>
+        <div class="link-card" onclick="goHub()">
+          <div>
+            <h3>Qu'est-ce que ça apporte aux enseignements ?</h3>
+            <div class="sub">Branche B2 — bientôt disponible</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="link-card" onclick="goHub()">
+          <div>
+            <h3>Comment ça se passe concrètement ?</h3>
+            <div class="sub">Branche B3 — bientôt disponible</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="link-card" onclick="goHub()">
+          <div>
+            <h3>Dans quel cadre ?</h3>
+            <div class="sub">Branche B4 — bientôt disponible</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+
+      <div class="link-section">
+        <div class="link-section-title">Ressources et contacts</div>
+        <div class="resource-tags">
+          <a class="resource-tag" href="https://ceppp.ca" target="_blank" rel="noopener">CEPPP Montréal</a>
+          <a class="resource-tag" href="https://www.france-assos-sante.org" target="_blank" rel="noopener">France Assos Santé</a>
+          <a class="resource-tag" href="https://universitedespatients.sorbonne-universite.fr" target="_blank" rel="noopener">Université des Patients</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 28px;">
+        <div class="link-card" onclick="goHub()" style="border-color: var(--c-teal); background: var(--c-teal-light);">
+          <div>
+            <h3 style="color: var(--c-teal-dark);">Retour à l'accueil</h3>
+            <div class="sub">Choisir une autre branche</div>
+          </div>
+          <span class="arrow" style="color: var(--c-teal-dark);">←</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Nav bottom -->
+  <div class="nav-bottom" id="nav-bottom">
+    <div class="nav-inner">
+      <button class="nav-btn prev" id="btn-prev" onclick="prevScreen()">← Précédent</button>
+      <span class="nav-counter" id="nav-counter">1 / 6</span>
+      <button class="nav-btn next" id="btn-next" onclick="nextScreen()">Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentScreen = 0;
+const totalScreens = 6;
+
+function goHub() {
+  document.getElementById('page-b1').classList.remove('active');
+  document.getElementById('page-hub').classList.add('active');
+  document.getElementById('btn-home').style.display = 'none';
+  document.getElementById('nav-bottom').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function goB1() {
+  document.getElementById('page-hub').classList.remove('active');
+  document.getElementById('page-b1').classList.add('active');
+  document.getElementById('btn-home').style.display = 'block';
+  document.getElementById('nav-bottom').style.display = 'block';
+  currentScreen = 0;
+  updateScreens();
+  window.scrollTo(0, 0);
+}
+
+function nextScreen() {
+  if (currentScreen < totalScreens - 1) {
+    currentScreen++;
+    updateScreens();
+    window.scrollTo(0, 0);
+  }
+}
+
+function prevScreen() {
+  if (currentScreen > 0) {
+    currentScreen--;
+    updateScreens();
+    window.scrollTo(0, 0);
+  }
+}
+
+function updateScreens() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.screen[data-screen="${currentScreen}"]`).classList.add('active');
+
+  document.querySelectorAll('.progress-dot').forEach((d, i) => {
+    d.classList.remove('done', 'current');
+    if (i < currentScreen) d.classList.add('done');
+    if (i === currentScreen) d.classList.add('current');
+  });
+
+  document.getElementById('nav-counter').textContent = `${currentScreen + 1} / ${totalScreens}`;
+  document.getElementById('btn-prev').disabled = currentScreen === 0;
+  document.getElementById('btn-next').disabled = currentScreen === totalScreens - 1;
+}
+
+// Init
+document.getElementById('nav-bottom').style.display = 'none';
+</script>
+
+</body>
+</html>
